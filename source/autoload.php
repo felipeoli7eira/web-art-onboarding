@@ -23,7 +23,7 @@
             */
 
             /*    classe instânciada | prefixo do fornecedor | tamanho do nome do fornecedor */
-            if (strncmp($class, $vendorPrefix, $vendorPrefix) != 0)
+            if (strncmp($class, $vendorPrefix, $vendorLength) != 0)
             {
                 /* Se não estiver sendo chamado uma classe do fornecedor definido na $vendorPrefix */
                 return;
