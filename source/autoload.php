@@ -1,5 +1,7 @@
 <?php
 
+    require __DIR__ . '/boot/conf.php';
+
     spl_autoload_register(
         function (string $class): void
         {
