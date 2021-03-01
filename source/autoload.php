@@ -1,6 +1,7 @@
 <?php
 
     require __DIR__ . '/boot/conf.php';
+    require __DIR__ . '/boot/triggers.php';
 
     spl_autoload_register(
         function (string $class): void
