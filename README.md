@@ -29,7 +29,7 @@ define('CONF_DB_USER', 'root');
 define('CONF_DB_PASSWORD', '');
 ```
 
-# Comando para criar o bancao de dados (MySQL)
+# Comandos para criar o banco e a tabela
 
 ```
 CREATE DATABASE onboarding DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
@@ -55,4 +55,4 @@ CREATE TABLE wappers (
 ) DEFAULT CHARSET UTF8;
 ```
 
-Tudo deverá funcioanr corretamente... (assim espero)
+Tudo deverá funcionar corretamente... (assim espero)
