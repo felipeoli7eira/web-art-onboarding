@@ -14,7 +14,7 @@
 Clone este repositório para a raiz do seu servidor local
 
 ```
-git clone git@github.com:felipeoli7eira/web-art-onboarding.git webart-onboarding-project
+git clone git@github.com:felipeoli7eira/web-art-onboarding.git
 ```
 
 Renomeie o arquivo ```conf-example.php``` para ```conf.php``` (esse arquivo está em ```source/boot/```). Isto é necessário pois o arquivo de autoload localizado em ```source/``` requer um arquivo com esse nome (```conf.php```)

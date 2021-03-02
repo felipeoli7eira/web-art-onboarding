@@ -7,4 +7,4 @@
     define('CONF_DB_PASSWORD', '');
 
     /** URL and PATHS */
-    define('CONF_URL_BASE', 'http://localhost/webart-onboarding-project');
+    define('CONF_URL_BASE', 'http://localhost/web-art-onboarding');

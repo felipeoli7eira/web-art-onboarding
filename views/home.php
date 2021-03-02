@@ -1,4 +1,4 @@
-<?php if (isset($wappers)): ?>
+<?php if (! empty($wappers)): ?>
 
     <ul id="wappers">
         <?php foreach ($wappers as $wapper): ?>
