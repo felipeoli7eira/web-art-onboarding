@@ -1,4 +1,4 @@
-# OnBoarding web.art group
+# Onboarding web.art group
 
 - [X] autoload de classe
 - [X] MVC
