@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" viewBox="0 0 80 80">
+  <defs>
+    <clipPath id="clip-logo-favicon">
+      <rect width="80" height="80"/>
+    </clipPath>
+  </defs>
+  <g id="logo-favicon" clip-path="url(#clip-logo-favicon)">
+    <rect width="80" height="80" fill="#fff"/>
+    <rect id="Retângulo_13" data-name="Retângulo 13" width="80" height="80" fill="#e85128"/>
+    <g id="Grupo_16" data-name="Grupo 16">
+      <g id="Grupo_9" data-name="Grupo 9" transform="translate(235.713 426.841)">
+        <g id="Grupo_8" data-name="Grupo 8" transform="translate(-228 -411)">
+          <path id="Caminho_33" data-name="Caminho 33" d="M147.931,514l-13.406,8.086,5.374,1.288-6.247,24.266h-.125l-6.921-19.628h-12.1l-6.921,22.467h-.125l-3.741-14.505H93l7.108,27.344h14.154L121,541.961h.125l7.3,21.356h11.6l9.619-37.611,6.529,1.565Z" transform="translate(-93 -514)" fill="#fff"/>
+          <rect id="Retângulo_20" data-name="Retângulo 20" width="10.894" height="10.598" transform="translate(54.22 38.65)" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
