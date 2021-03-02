@@ -18,7 +18,7 @@
     function view(string $viewName, ?array $data = []): void
     {
 
-        if ( !is_null($data))
+        if (count($data))
         {
             foreach ($data as $varName => $value)
             {
