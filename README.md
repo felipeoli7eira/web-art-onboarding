@@ -9,7 +9,7 @@
 - [ ] Alertas em JS para as ações de sucesso e erro
 - [X] CSS básico para organizar o front
 
-# Subindo esse ambiente na sua máquina
+# Subindo esse projeto na sua máquina
 
 Clone este repositório para a raiz do seu servidor local
 
