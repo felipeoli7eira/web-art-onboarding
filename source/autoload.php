@@ -36,7 +36,7 @@
 
             $cutPrefix = substr($class, $vendorLength); // remove o prefixo Source\ da clase chamada
 
-            $classFile = $baseDirectory . str_replace('\\', DIRECTORY_SEPARATOR, $cutPrefix) . '.php';
+            $classFile = $baseDirectory . str_replace('\\', DIRECTORY_SEPARATOR, $cutPrefix) . '.class.php';
 
             if (file_exists($classFile) && is_file($classFile))
             {
