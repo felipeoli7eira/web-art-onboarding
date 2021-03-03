@@ -1,3 +1,7 @@
+<nav class="create-wapper-nav">
+    <a href="<?= url('/novo-wapper') ?>">novo wapper</a>
+</nav>
+
 <?php if (! empty($wappers)): ?>
 
     <ul id="wappers">
