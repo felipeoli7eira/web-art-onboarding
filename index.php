@@ -7,6 +7,7 @@
     $wapperController = new WapperController();
 
     $route = array_key_exists('route', $_GET);
+    $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT);
 
     if ($route)
     {
@@ -14,7 +15,7 @@
 
         switch ($path)
         {
-            case '/novo-wapper':
+            case '/novo-wapper' && $requestMethod === 'GET':
 
                 $wapperController->htmlFormCreate();
 
@@ -30,7 +31,14 @@
     }
     else
     {
-        $wapperController->home();
+        if ($requestMethod === 'GET')
+        {
+            $wapperController->home();
+            return;
+        }
+
+        echo "<h1>404 - Solicitação não encontrada</h1>";
+        # implementar página de erro: $wapperController->notFound();
     }
 
     /*
