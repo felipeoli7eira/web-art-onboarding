@@ -76,6 +76,12 @@
             var_dump('cadastro sem foto mesmo');
         }
 
+        /**
+         * Faz o upload para a pasta storage, retorna o nome do arquivos em caso de sucesso ou false em casos de erro
+         * 
+         * @param array $requestFile
+         * @return string|bool
+        */
         public function upload(array $requestFile)
         {
             $file = $requestFile['photo'];
