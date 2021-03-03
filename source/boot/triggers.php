@@ -2,8 +2,8 @@
 
     function url(?string $string = null): string
     {
-        if ( !is_null($string))
-        {
+        if ( !is_null($string)) {
+
             return CONF_URL_BASE . ( $string[0] === '/' ? $string : '/' . $string );
         }
 
@@ -18,10 +18,10 @@
     function view(string $viewName, ?array $data = []): void
     {
 
-        if (sizeof($data) > 0)
-        {
-            foreach ($data as $varName => $value)
-            {
+        if (sizeof($data) > 0) {
+
+            foreach ($data as $varName => $value) {
+
                 $$varName = $value;
             }
         }

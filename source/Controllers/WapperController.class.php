@@ -1,12 +1,23 @@
 <?php
 
+    /**
+     * @class WapperController
+     * 
+     * Controlador de wapper
+     * 
+     * @author Felipe Oliveira <felipe.oliveira@wapstore.com.br>
+    */
+
     namespace Source\Controllers;
 
     use Source\Models\WapperModel;
 
     class WapperController
     {
-        /** @var Source\Models\WapperModel $wapperModel */
+        /**
+         * Armazena a instância do modelo WapperModel
+         * @var Source\Models\WapperModel $wapperModel
+         * */
         private $wapperModel;
 
         public function __construct()
@@ -15,6 +26,8 @@
         }
 
         /**
+         * Busca todos os wappers no banco e exibe a view "home" para o endpoint / (raiz)
+         * @method home()
          * @return void
         */
         public function home(): void
@@ -25,6 +38,8 @@
         }
 
         /**
+         * Exibe a view form-create para cadastro de novo wapper
+         * @method htmlFormCreate()
          * @return void
         */
         public function htmlFormCreate(): void
@@ -33,8 +48,10 @@
         }
 
         /**
+         * Cadastra um novo wapper
+         * @method createWapper()
          * @param array $requestData
-         * @param array $requestFiles
+         * @param null|array $requestFiles
          * @return mixed
         */
         public function createWapper(array $requestData, ?array $requestFiles)

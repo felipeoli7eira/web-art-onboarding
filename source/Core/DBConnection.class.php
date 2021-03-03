@@ -1,5 +1,13 @@
 <?php
 
+    /**
+     * @class DBConnection
+     * 
+     * Cria a conexão com o banco de dados usando o design patten Singleton
+     * 
+     * @author Felipe Oliveira <felipe.oliveira@wapstore.com.br>
+    */
+
     namespace Source\Core;
 
     use PDO;
@@ -7,7 +15,10 @@
 
     class DBConnection
     {
-        /** @var PDO $instance */
+        /**
+         * Armazena a única instância de conexão PDO
+         * @var PDO $instance
+         * */
         private static $instance;
 
         private const OPTIONS = [
@@ -26,14 +37,16 @@
         }
 
         /**
+         * Retorna a única instância de conexão PDO
+         * @method getConnection()
          * @return PDO
         */
         public static function getConnection(): PDO
         {
-            if (is_null(self::$instance))
-            {
-                try
-                {
+            if (is_null(self::$instance)) {
+
+                try {
+
                     self::$instance = new PDO(
                         'mysql:host=' . CONF_DB_HOST . ';dbname=' . CONF_DB_NAME,
                         CONF_DB_USER,
@@ -41,8 +54,8 @@
                         self::OPTIONS
                     );
                 }
-                catch (PDOException $exception)
-                {
+                catch (PDOException $exception) {
+
                     die('<h1>( ! ) Configure os parâmetros do banco de dados</h1>');
                 }
             }

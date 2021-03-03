@@ -28,8 +28,8 @@
             */
 
             /*    classe instânciada | prefixo do fornecedor | tamanho do nome do fornecedor */
-            if (strncmp($class, $vendorPrefix, $vendorLength) != 0)
-            {
+            if (strncmp($class, $vendorPrefix, $vendorLength) != 0) {
+
                 /* Se não estiver sendo chamado uma classe do fornecedor definido na $vendorPrefix */
                 return;
             }
@@ -38,8 +38,8 @@
 
             $classFile = $baseDirectory . str_replace('\\', DIRECTORY_SEPARATOR, $cutPrefix) . '.class.php';
 
-            if (file_exists($classFile) && is_file($classFile))
-            {
+            if (file_exists($classFile) && is_file($classFile)) {
+
                 require $classFile;
             }
         }
