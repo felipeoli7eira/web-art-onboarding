@@ -25,4 +25,9 @@
         {
             view('form-create');
         }
+
+        public function createWapper(array $requestData, ?array $requestFiles)
+        {
+            var_dump($requestData, $requestFiles);
+        }
     }

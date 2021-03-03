@@ -21,6 +21,12 @@
 
             break;
 
+            case '/wapper' && $requestMethod === 'POST':
+
+                $wapperController->createWapper($_POST, $_FILES);
+
+            break;
+
             default:
 
                 echo "<h1>404 - Solicitação não encontrada</h1>";

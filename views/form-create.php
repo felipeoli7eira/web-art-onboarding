@@ -1,5 +1,5 @@
 <nav class="create-wapper-nav">
-    <a href="<?= url() ?>">wappers</a>
+    <a href="<?= url('/wapper') ?>">wappers</a>
 </nav>
 
 <form name="create-wapper" id="create-wapper" method="POST" action="<?= url('/wapper') ?>">
