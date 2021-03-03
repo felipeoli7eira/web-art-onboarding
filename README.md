@@ -7,7 +7,7 @@
 - [ ] Cadastro, Leitura, Edição e Remoção de dados
 - [ ] Upload de imagens
 - [ ] Alertas em JS para as ações de sucesso e erro
-- [ ] CSS básico para organizar o front
+- [X] CSS básico para organizar o front
 
 # Subindo esse ambiente na sua máquina
 
