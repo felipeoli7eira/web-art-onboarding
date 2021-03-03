@@ -7,6 +7,7 @@
 
     class DBConnection
     {
+        /** @var PDO $instance */
         private static $instance;
 
         private const OPTIONS = [
@@ -24,6 +25,9 @@
         {
         }
 
+        /**
+         * @return PDO
+        */
         public static function getConnection(): PDO
         {
             if (is_null(self::$instance))

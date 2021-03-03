@@ -4,7 +4,11 @@
 
     class WapperModel extends Model
     {
-        public function all(?string $columns = "*")
+        /**
+         * @param null|string $columns
+         * @return array
+        */
+        public function all(?string $columns = "*"): array
         {
             return $this->select($columns);
         }

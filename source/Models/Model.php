@@ -6,7 +6,11 @@
 
     abstract class Model
     {
-        protected function select(?string $columns = "*")
+        /**
+         * @param null|string $columns
+         * @return array
+        */
+        protected function select(?string $columns = "*"): array
         {
             $select = DBConnection::getConnection()->query("SELECT {$columns} FROM wappers");
 

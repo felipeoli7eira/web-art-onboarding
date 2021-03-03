@@ -4,6 +4,10 @@
     require __DIR__ . '/boot/triggers.php';
 
     spl_autoload_register(
+        /**
+         * @param string $class
+         * @return void
+        */
         function (string $class): void
         {
             $baseDirectory = __DIR__ . '/';
