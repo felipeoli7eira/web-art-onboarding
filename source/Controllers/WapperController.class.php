@@ -20,6 +20,12 @@
          * */
         private $wapperModel;
 
+        /**
+         * Tipos permitidos de arquivos para upload
+         * @var array $allowedFileTypes
+         * */
+        private array $allowedFileTypes = ['image/jpg', 'image/png', 'image/jpeg'];
+
         public function __construct()
         {
             $this->wapperModel = new WapperModel();
@@ -54,8 +60,50 @@
          * @param null|array $requestFiles
          * @return mixed
         */
-        public function createWapper(array $requestData, ?array $requestFiles)
+        public function createWapper(array $requestData, ?array $requestFiles = null)
         {
-            var_dump($requestData, $requestFiles);
+            if (
+                !empty($requestFiles) &&
+                array_key_exists('photo', $requestFiles) &&
+                array_key_exists('name', $requestFiles['photo'])
+            )
+            {
+                $upload = $this->upload($requestFiles);
+
+                var_dump($upload);
+            }
+
+            var_dump('cadastro sem foto mesmo');
+        }
+
+        public function upload(array $requestFile)
+        {
+            $file = $requestFile['photo'];
+
+            if (in_array($file['type'], $this->allowedFileTypes))
+            {
+                /**
+                 * O resultado da @var string $timeName será parecido com: upload-03-03-2021-17h44m53s-timestamp-1614804293
+                */
+                $timeName = 'upload-' . date('d-m-Y-H\hi\ms\s') . '-timestamp-' . time();
+                $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+
+                $fileUploadName = $timeName . '.' . $extension;
+
+                $move = move_uploaded_file($file['tmp_name'], CONF_UPLOADS_PATH . $fileUploadName);
+
+                if ($move)
+                {
+                    return $fileUploadName;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }

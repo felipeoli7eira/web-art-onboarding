@@ -2,7 +2,7 @@
     <a href="<?= url() ?>">wappers</a>
 </nav>
 
-<form name="create-wapper" id="create-wapper" method="POST" action="<?= url('/wapper') ?>">
+<form enctype="multipart/form-data" name="create-wapper" id="create-wapper" method="POST" action="<?= url('/wapper') ?>">
 
     <div class="input-group">
         <label for="input-photo">Foto de perfil</label>
