@@ -14,10 +14,15 @@
             $this->wapperModel = new WapperModel();
         }
 
-        public function home()
+        public function home(): void
         {
             $wappers = $this->wapperModel->all();
 
             view('home', ['wappers' => $wappers]);
+        }
+
+        public function htmlFormCreate(): void
+        {
+            view('form-create');
         }
     }

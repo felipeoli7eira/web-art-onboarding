@@ -16,15 +16,14 @@
         {
             case '/novo-wapper':
 
-                echo 'Novo wapper';
-                # $wapperController->htmlFormCreate();
+                $wapperController->htmlFormCreate();
 
             break;
 
             default:
 
                 echo "<h1>404 - Solicitação não encontrada</h1>";
-                # $wapperController->notFound();
+                # implementar página de erro: $wapperController->notFound();
 
             break;
         }
