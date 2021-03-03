@@ -39,7 +39,7 @@
                 }
                 catch (PDOException $exception)
                 {
-                    die('<h1>Erro...</h1>');
+                    die('<h1>( ! ) Configure os parâmetros do banco de dados</h1>');
                 }
             }
 
