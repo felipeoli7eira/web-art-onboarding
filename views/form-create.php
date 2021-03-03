@@ -1,5 +1,5 @@
-<nav class="create-wapper-nav">
-    <a href="<?= url('/wapper') ?>">wappers</a>
+<nav class="list-wappers-nav">
+    <a href="<?= url() ?>">wappers</a>
 </nav>
 
 <form name="create-wapper" id="create-wapper" method="POST" action="<?= url('/wapper') ?>">
@@ -47,7 +47,7 @@
     </div>
 
     <div class="input-group submit-box">
-        <button type="submit" name="submit">pronto</button>
+        <button type="submit">pronto</button>
     </div>
 
 </form>

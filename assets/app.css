@@ -89,7 +89,7 @@ ul#wappers li nav a:last-child
 
 /* -------------------- */
 
-.create-wapper-nav
+.create-wapper-nav, .list-wappers-nav
 {
     text-align: right;
     padding: 1rem;
@@ -97,7 +97,7 @@ ul#wappers li nav a:last-child
     margin: 1rem auto;
 }
 
-.create-wapper-nav a
+.create-wapper-nav a, .list-wappers-nav a
 {
     transition: all .2s;
     text-decoration: none;
@@ -111,7 +111,7 @@ ul#wappers li nav a:last-child
     color: #fff;
 }
 
-.create-wapper-nav a:active
+.create-wapper-nav a:active, .list-wappers-nav a:active
 {
     opacity: 0.8;
 }
