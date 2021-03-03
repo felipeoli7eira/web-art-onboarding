@@ -115,3 +115,82 @@ ul#wappers li nav a:last-child
 {
     opacity: 0.8;
 }
+
+/* -------------------- */
+
+form#create-wapper
+{
+    /* border: 1px solid red; */
+
+    max-width: 500px;
+    margin: 10px auto 4rem auto;
+
+}
+
+form#create-wapper .input-group
+{
+    padding: 10px;
+}
+
+form#create-wapper .input-group label
+{
+    display: inline-block;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--blue-dark);
+}
+
+form#create-wapper .input-group input
+{
+    border: none;
+    outline: none;
+    background: none;
+
+    border: 1px solid #d8d8d8;
+    transition: all .2s;
+    font-size: 14px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    display: inline-block;
+    width: 100%;
+}
+
+form#create-wapper .input-group input:focus
+{
+    border-color: var(--blue-dark);
+}
+
+/* Autocomplete background-color */
+form#create-wapper input:-webkit-autofill
+{
+    -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+}
+
+form#create-wapper button[type=submit]
+{
+    outline: none;
+    border: none;
+    background: none;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #fff;
+    background-color: var(--blue-dark);
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: all .2s;
+    cursor: pointer;
+}
+
+form#create-wapper button[type=submit]:active
+{
+    opacity: 0.8;
+}
+
+form#create-wapper .submit-box
+{
+    text-align: right;
+}
