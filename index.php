@@ -10,36 +10,53 @@
 
     if ($route)
     {
+        $path = filter_input(INPUT_GET, 'route', FILTER_SANITIZE_SPECIAL_CHARS);
 
+        switch ($path)
+        {
+            case '/novo-wapper':
+
+                echo 'Novo wapper';
+                # $wapperController->htmlFormCreate();
+
+            break;
+
+            default:
+
+                echo "<h1>404 - Solicitação não encontrada</h1>";
+                # $wapperController->notFound();
+
+            break;
+        }
     }
     else
     {
         $wapperController->home();
     }
 
-        // var_dump(
-    //     [
-    //         'METHOD' => $_SERVER['REQUEST_METHOD'],
+    /*
+        var_dump(
+            [
+                'METHOD' => $_SERVER['REQUEST_METHOD'],
 
-    //         'ROUTE' => $_GET['route'],
+                'ROUTE' => $_GET['route'],
 
-    //         'QUERYs' => $_SERVER['QUERY_STRING'],
+                'QUERYs' => $_SERVER['QUERY_STRING'],
 
-    //         'REQUEST_URI' => $_SERVER['REQUEST_URI'],
+                'REQUEST_URI' => $_SERVER['REQUEST_URI'],
 
-    //         'REDIRECT_QUERY_STRING' => $_SERVER['REDIRECT_QUERY_STRING'],
+                'REDIRECT_QUERY_STRING' => $_SERVER['REDIRECT_QUERY_STRING'],
 
-    //         'REDIRECT_URL' => $_SERVER['REDIRECT_URL']
-    //     ]
-    // );
+                'REDIRECT_URL' => $_SERVER['REDIRECT_URL']
+            ]
+        );
 
-    // ----------------------------------------------------------------
-
-    // if (!array_key_exists('REDIRECT_QUERY_STRING', $requestParams))
-    // {
-    //     var_dump('/');
-    // }
-    // else
-    // {
-    //     var_dump($_SERVER['REDIRECT_QUERY_STRING']);
-    // }
+        if (!array_key_exists('REDIRECT_QUERY_STRING', $requestParams))
+        {
+            var_dump('/');
+        }
+        else
+        {
+            var_dump($_SERVER['REDIRECT_QUERY_STRING']);
+        }
+    */
