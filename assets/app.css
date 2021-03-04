@@ -19,16 +19,22 @@ body
     background-color: #eaeaea;
 }
 
-.no-results
+.page-error
 {
     padding: 1rem;
     text-align: center;
     margin-top: 3rem;
 }
 
-.no-results h1
+.page-error img
+{
+    max-width: 150px;
+}
+
+.page-error h1
 {
     font-weight: 300;
+    font-size: 25px;
     margin-top: 1rem;
     color: var(--blue-dark);
 }

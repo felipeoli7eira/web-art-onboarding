@@ -68,7 +68,7 @@
                 array_key_exists('name', $requestFiles['photo'])
             )
             {
-                $upload = $this->upload($requestFiles) ?? null;
+                $upload = $this->upload($requestFiles);
             }
 
             $filtered = [];
@@ -78,7 +78,7 @@
                 $filtered [ $key ] = is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
             }
 
-            $filtered['photo'] = $upload;
+            $filtered['photo'] = isset($upload) ? $upload: null;
 
             $created = $this->wapperModel->insert($filtered);
 
@@ -89,8 +89,7 @@
             }
             else {
 
-                // por enquando !!!
-                echo '<h1>Erro inesperado! tente mais tarde.</h1>', '<nav><a href="' . url() . '">home</a></nav>';
+                view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'undraw_server.svg']);
             }
         }
 

@@ -25,11 +25,4 @@
         <?php endforeach ?>
     </ul>
 
-<?php else: ?>
-
-    <div class="no-results">
-        <img src="<?= asset('undraw_Taken.svg') ?>" width="200" />
-        <h1>Nenhum resultado para listar</h1>
-    </div>
-
-<?php endif ?>
+<?php else: view('notification', ['text' => 'Tudo calmo por aqui...']); endif ?>
