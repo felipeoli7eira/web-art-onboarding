@@ -77,6 +77,12 @@ ul#wappers li img
     margin-bottom: 10px;
 }
 
+ul#wappers li nav
+{
+    text-align: right;
+    margin-top: 15px;
+}
+
 ul#wappers li nav a
 {
     text-decoration: none;
