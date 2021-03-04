@@ -8,7 +8,7 @@
         <?php foreach ($wappers as $wapper): ?>
             <li class="wapper-profile">
                 <img src="https://via.placeholder.com/150" alt="<?= $wapper->name ?>" />
-                <p> <?= mb_convert_case($wapper->name, MB_CASE_TITLE) ?> | <?= $wapper->profession ?> </p>
+                <p> <?= filter_var($wapper->name, FILTER_SANITIZE_SPECIAL_CHARS) ?> | <?= $wapper->profession ?> </p>
 
                 <p> <?= $wapper->email ?> | <?= $wapper->phone ?> </p>
 
