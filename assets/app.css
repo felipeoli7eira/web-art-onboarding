@@ -61,7 +61,20 @@ ul#wappers li
 ul#wappers li p
 {
     color: var(--blue-dark);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+    font-weight: 400;
+}
+
+ul#wappers li p.name
+{
+    font-size: 22px;
+}
+
+ul#wappers li img
+{
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 10px;
 }
 
 ul#wappers li nav a
@@ -99,7 +112,7 @@ ul#wappers li nav a:last-child
 {
     text-align: right;
     padding: 1rem;
-    max-width: 500px;
+    max-width: 700px;
     margin: 1rem auto;
 }
 
@@ -111,10 +124,11 @@ ul#wappers li nav a:last-child
     font-size: 14px;
     text-transform: uppercase;
     display: inline-block;
-    padding: 10px 20px;
+    padding: 10px 16px;
     border-radius: 4px;
     background-color: var(--blue-dark);
     color: #fff;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
 }
 
 .create-wapper-nav a:active, .list-wappers-nav a:active
@@ -126,8 +140,6 @@ ul#wappers li nav a:last-child
 
 form#create-wapper
 {
-    /* border: 1px solid red; */
-
     max-width: 500px;
     margin: 10px auto 4rem auto;
 
@@ -135,7 +147,7 @@ form#create-wapper
 
 form#create-wapper .input-group
 {
-    padding: 10px;
+    padding: 5px;
 }
 
 form#create-wapper .input-group label
@@ -166,7 +178,7 @@ form#create-wapper .input-group input
 
 form#create-wapper .input-group input:focus
 {
-    border-color: var(--blue-dark);
+    border-color: #a7a7a7;
 }
 
 /* Autocomplete background-color */
@@ -185,10 +197,11 @@ form#create-wapper button[type=submit]
     font-size: 14px;
     color: #fff;
     background-color: var(--blue-dark);
-    padding: 10px 15px;
+    padding: 10px 16px;
     border-radius: 4px;
     transition: all .2s;
     cursor: pointer;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
 }
 
 form#create-wapper button[type=submit]:active

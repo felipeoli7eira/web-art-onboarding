@@ -7,15 +7,24 @@
     <ul id="wappers">
         <?php foreach ($wappers as $wapper): ?>
             <li class="wapper-profile">
-                <img src="https://via.placeholder.com/150" alt="<?= $wapper->name ?>" />
 
-                <p> <?= filter_var($wapper->name, FILTER_SANITIZE_SPECIAL_CHARS) ?> | <?= $wapper->profession ?> </p>
+                <?php if ($wapper->photo): ?>
 
-                <p> <?= $wapper->email ?> | <?= $wapper->phone ?> </p>
+                    <img src="<?= url("storage/{$wapper->photo}") ?>" alt="Foto de perfil do(a) <?= $wapper->name ?>" />
+                <?php else: ?>
 
-                <p> Idade: <?= $wapper->birth ?> </p>
+                    <img src="https://via.placeholder.com/1080" alt="Foto de perfil do(a) <?= $wapper->name ?>" />
+                <?php endif ?>
 
-                <p> Mora em <?= $wapper->city ?> / <?= $wapper->state ?> </p>
+                <p class="name"> <?= filter_var($wapper->name, FILTER_SANITIZE_SPECIAL_CHARS) ?> </p>
+
+                <p> 📚 <?= $wapper->profession ?> </p>
+
+                <p class="contacts"> 📧 <?= $wapper->email ?> 📱 <?= $wapper->phone ?> </p>
+
+                <p> 👶 <?= date('d/m/Y', strtotime($wapper->birth)) ?> </p>
+
+                <p> 🌄<?= $wapper->city . '/' . $wapper->state ?></p>
 
                 <nav>
                     <a href="#">atualizar</a>
