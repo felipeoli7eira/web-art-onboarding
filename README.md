@@ -2,7 +2,7 @@
 
 - [X] autoload de classe
 - [X] MVC
-- [X] Orientação á Objetos
+- [X] Orientação a Objetos
 - [ ] Super classe de Modelo
 - [X] Cadastro
 - [X] Leitura
