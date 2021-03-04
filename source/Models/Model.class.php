@@ -12,6 +12,8 @@
 
     use Source\Core\DBConnection;
 
+    use PDOException;
+
     abstract class Model
     {
         /**
@@ -27,5 +29,26 @@
             $select->execute();
 
             return $select->fetchAll();
+        }
+
+        protected function create(array $data): ?int
+        {
+            try {
+
+                $columns = implode(', ', array_keys($data));
+                $values = ':' . implode(', :', array_keys($data));
+
+                $insert = 'INSERT INTO wappers (' . $columns . ') VALUES (' . $values . ')';
+
+                $stmt = DBConnection::getConnection()->prepare($insert);
+
+                $stmt->execute($data);
+
+                return DBConnection::getConnection()->lastInsertId();
+            }
+            catch (PDOException $exception) {
+
+                return null;
+            }
         }
     }

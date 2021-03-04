@@ -68,12 +68,30 @@
                 array_key_exists('name', $requestFiles['photo'])
             )
             {
-                $upload = $this->upload($requestFiles);
-
-                var_dump($upload);
+                $upload = $this->upload($requestFiles) ?? null;
             }
 
-            var_dump('cadastro sem foto mesmo');
+            $filtered = [];
+
+            foreach ($requestData as $key => $value) {
+
+                $filtered [ $key ] = is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+            }
+
+            $filtered['photo'] = $upload;
+
+            $created = $this->wapperModel->insert($filtered);
+
+            if ($created) {
+
+                header('HTTP/1.1 302 Redirect');
+                header('Location: ' . url());
+            }
+            else {
+
+                // por enquando !!!
+                echo '<h1>Erro inesperado! tente mais tarde.</h1>', '<nav><a href="' . url() . '">home</a></nav>';
+            }
         }
 
         /**

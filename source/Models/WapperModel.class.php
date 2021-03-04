@@ -22,4 +22,13 @@
         {
             return $this->select($columns);
         }
+
+        /**
+         * @param array $data [valores para inserir na tabela]
+         * @return null|int
+         */
+        public function insert(array $data): ?int
+        {
+            return $this->create($data);
+        }
     }
