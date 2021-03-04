@@ -28,7 +28,7 @@
 
                 <nav>
                     <a href="#">atualizar</a>
-                    <a href="#">deletar</a>
+                    <a href="<?= url('d?wid=' . $wapper->id) ?>">deletar</a>
                 </nav>
             </li>
         <?php endforeach ?>
