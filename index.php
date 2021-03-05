@@ -17,9 +17,14 @@
                 $wapperController->htmlFormCreate();
             break;
 
-            case '/wapper':
+            case '/wapper': /** CREATE */
 
                 $wapperController->createWapper($_POST, $_FILES);
+            break;
+
+            case '/d': /** DELETE */
+
+                $wapperController->delete();
             break;
 
             default:
@@ -29,5 +34,5 @@
     }
     else {
 
-        $wapperController->home();
+        $wapperController->home(); /** READ ALL */
     }

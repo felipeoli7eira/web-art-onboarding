@@ -31,4 +31,9 @@
         {
             return $this->create($data);
         }
+
+        public function delete(int $id)
+        {
+            return $this->destroy('id = :id', ['id' => $id]);
+        }
     }

@@ -51,4 +51,18 @@
                 return null;
             }
         }
+
+        protected function destroy(string $condition, array $conditionParams): ?int
+        {
+            try {
+
+                $stmt = DBConnection::getConnection()->prepare('DELETE FROM wappers WHERE ' . $condition);
+                $stmt->execute($conditionParams);
+
+                return $stmt->rowCount() ?? 1;
+            }
+            catch (PDOException $exception) {
+                return null;
+            }
+        }
     }

@@ -118,6 +118,36 @@
             }
         }
 
+        public function delete()
+        {
+            if ($this->requestMethod() === 'GET' && array_key_exists( /** wapper id */ 'wid', $_GET)) {
+
+                $id = filter_input(INPUT_GET, 'wid', FILTER_VALIDATE_INT);
+
+                if ($id) {
+                    $deleted = $this->wapperModel->delete($id);
+
+                    if ($deleted) {
+    
+                        header('HTTP/1.1 302 Redirect');
+                        header('Location: ' . url());
+                    }
+                    else {
+
+                        view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'undraw_server.svg']);
+                    }
+                }
+                else {
+
+                    view ('notification', ['text' => 'Dados passados incorretamente, verifique e tente novamente']);
+                }
+            }
+            else {
+
+                view ('notification', ['text' => 'Solicitação não encontrada ou mau formatada']);
+            }
+        }
+
         /**
          * Faz o upload para a pasta storage, retorna o nome do arquivos em caso de sucesso ou false em casos de erro
          * 

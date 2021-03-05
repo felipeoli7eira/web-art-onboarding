@@ -18,6 +18,8 @@
     function view(string $viewName, ?array $data = []): void
     {
 
+        # extract($data);
+
         if (sizeof($data) > 0) {
 
             foreach ($data as $varName => $value) {
