@@ -40,7 +40,7 @@
         {
             if ($this->requestMethod() === 'GET') {
 
-                $wappers = $this->wapperModel->all();
+                $wappers = $this->wapperModel->selectAll();
 
                 view('home', ['wappers' => $wappers]);
                 return;
@@ -78,7 +78,7 @@
          * @param null|array $requestFiles
          * @return mixed
         */
-        public function createWapper(array $requestData, ?array $requestFiles = null)
+        public function insert(array $requestData, ?array $requestFiles = null)
         {
             if ($this->requestMethod() === 'POST') {
 
@@ -90,25 +90,25 @@
                 {
                     $upload = $this->upload($requestFiles);
                 }
-    
+
                 $filtered = [];
-    
+
                 foreach ($requestData as $key => $value) {
-    
+
                     $filtered [ $key ] = is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
                 }
-    
+
                 $filtered['photo'] = isset($upload) ? $upload: null;
-    
+
                 $created = $this->wapperModel->insert($filtered);
-    
+
                 if ($created) {
-    
+
                     header('HTTP/1.1 302 Redirect');
                     header('Location: ' . url());
                 }
                 else {
-    
+
                     view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'undraw_server.svg']);
                 }
             }
@@ -118,14 +118,14 @@
             }
         }
 
-        public function delete()
+        public function destroy()
         {
             if ($this->requestMethod() === 'GET' && array_key_exists( /** wapper id */ 'wid', $_GET)) {
 
                 $id = filter_input(INPUT_GET, 'wid', FILTER_VALIDATE_INT);
 
                 if ($id) {
-                    $deleted = $this->wapperModel->delete($id);
+                    $deleted = $this->wapperModel->destroy($id);
 
                     if ($deleted) {
     
@@ -146,6 +146,77 @@
 
                 view ('notification', ['text' => 'Solicitação não encontrada ou mau formatada']);
             }
+        }
+
+        public function edit()
+        {
+            /** [ GET ]
+             * Chamar formulário de edição
+            */
+            if (
+                $this->requestMethod() === 'GET' &&
+                array_key_exists( /** wapper id */ 'wid', $_GET) &&
+                $this->validInt($_GET['wid'])
+            )
+            {
+                $wapper = $this->wapperModel->getByID( filter_input(INPUT_GET, 'wid', FILTER_SANITIZE_NUMBER_INT) );
+
+                view('form-update', ['wapper' => $wapper]);
+                return;
+            }
+
+            /** [ POST ]
+             * Persistir edição no banco
+            */
+            if (
+                $this->requestMethod() === 'POST' &&
+                array_key_exists('id', $_POST) &&
+                $this->validInt($_POST['id'])
+            )
+            {
+                if (array_key_exists('old_photo', $_POST) && !empty($_POST['old_photo']))
+                {
+                    if (file_exists(CONF_UPLOADS_PATH . $_POST['old_photo']))
+                    {
+                        unlink(CONF_UPLOADS_PATH . $_POST['old_photo']);
+                    }
+                    unset($_POST['old_photo']);
+                }
+
+                if (
+                    !empty($_FILES) &&
+                    array_key_exists('photo', $_FILES) &&
+                    array_key_exists('name', $_FILES['photo'])
+                )
+                {
+                    $upload = $this->upload($_FILES);
+                }
+
+                $sanitize = [];
+
+                foreach ($_POST as $key => $value) {
+
+                    $sanitize [ $key ] = is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+                }
+
+                $sanitize['photo'] = !empty($upload) ? $upload: null;
+
+                $updated = $this->wapperModel->edit($sanitize);
+
+                if ($updated) {
+
+                    header('HTTP/1.1 302 Redirect');
+                    header('Location: ' . url());
+                    exit();
+                }
+                else {
+
+                    view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'undraw_server.svg']);
+                    return;
+                }
+            }
+
+            view ('notification', ['text' => 'Solicitação não encontrada ou mau formatada']);
         }
 
         /**

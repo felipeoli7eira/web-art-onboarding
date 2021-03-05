@@ -19,12 +19,17 @@
 
             case '/wapper': /** CREATE */
 
-                $wapperController->createWapper($_POST, $_FILES);
+                $wapperController->insert($_POST, $_FILES);
             break;
 
             case '/d': /** DELETE */
 
-                $wapperController->delete();
+                $wapperController->destroy();
+            break;
+
+            case '/edit': /** UPDATE */
+
+                $wapperController->edit();
             break;
 
             default:

@@ -13,4 +13,9 @@
         {
             return filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT);
         }
+
+        protected function validInt($arg): bool
+        {
+            return filter_var($arg, FILTER_VALIDATE_INT);
+        }
     }

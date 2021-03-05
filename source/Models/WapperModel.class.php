@@ -18,9 +18,9 @@
          * @param null|string $columns
          * @return array
         */
-        public function all(?string $columns = '*'): array
+        public function selectAll(): array
         {
-            return $this->select($columns);
+            return $this->read('SELECT * FROM wappers')->fetchAll();
         }
 
         /**
@@ -32,8 +32,18 @@
             return $this->create($data);
         }
 
-        public function delete(int $id)
+        public function destroy(int $id)
         {
-            return $this->destroy('id = :id', ['id' => $id]);
+            return $this->delete('id = :id', ['id' => $id]);
+        }
+
+        public function getByID($id, string $columns = '*')
+        {
+            return $this->read('SELECT ' . $columns . ' FROM wappers WHERE id = :id', [':id' => $id])->fetch();
+        }
+
+        public function edit(array $data)
+        {
+            return $this->update($data, (int) $data['id']);
         }
     }

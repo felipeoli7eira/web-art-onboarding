@@ -27,7 +27,7 @@
                 <p> 🌄<?= $wapper->city . '/' . $wapper->state ?></p>
 
                 <nav>
-                    <a href="#">atualizar</a>
+                    <a href="<?= url('edit?wid=' . $wapper->id) ?>">atualizar</a>
                     <a href="<?= url('d?wid=' . $wapper->id) ?>">deletar</a>
                 </nav>
             </li>
