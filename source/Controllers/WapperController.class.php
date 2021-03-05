@@ -12,7 +12,7 @@
 
     use Source\Models\WapperModel;
 
-    class WapperController
+    class WapperController extends Controller
     {
         /**
          * Armazena a instância do modelo WapperModel
@@ -32,15 +32,21 @@
         }
 
         /**
-         * Busca todos os wappers no banco e exibe a view "home" para o endpoint / (raiz)
+         * Busca todos os wappers no banco e exibe a view "home" para o endpoint GET /
          * @method home()
          * @return void
         */
         public function home(): void
         {
-            $wappers = $this->wapperModel->all();
+            if ($this->requestMethod() === 'GET') {
 
-            view('home', ['wappers' => $wappers]);
+                $wappers = $this->wapperModel->all();
+
+                view('home', ['wappers' => $wappers]);
+                return;
+            }
+
+            view('notification', ['text' => 'Solicitação não encontrada']);
         }
 
         /**
@@ -50,7 +56,19 @@
         */
         public function htmlFormCreate(): void
         {
-            view('form-create');
+            if ($this->requestMethod() === 'GET') {
+
+                view ('form-create');
+            }
+            else {
+
+                view ('notification',
+                    [
+                        'text' => 'Solicitação não encontrada',
+                        'image' => 'undraw_server.svg'
+                    ]
+                );
+            }
         }
 
         /**
@@ -62,34 +80,41 @@
         */
         public function createWapper(array $requestData, ?array $requestFiles = null)
         {
-            if (
-                !empty($requestFiles) &&
-                array_key_exists('photo', $requestFiles) &&
-                array_key_exists('name', $requestFiles['photo'])
-            )
-            {
-                $upload = $this->upload($requestFiles);
-            }
+            if ($this->requestMethod() === 'POST') {
 
-            $filtered = [];
-
-            foreach ($requestData as $key => $value) {
-
-                $filtered [ $key ] = is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
-            }
-
-            $filtered['photo'] = isset($upload) ? $upload: null;
-
-            $created = $this->wapperModel->insert($filtered);
-
-            if ($created) {
-
-                header('HTTP/1.1 302 Redirect');
-                header('Location: ' . url());
+                if (
+                    !empty($requestFiles) &&
+                    array_key_exists('photo', $requestFiles) &&
+                    array_key_exists('name', $requestFiles['photo'])
+                )
+                {
+                    $upload = $this->upload($requestFiles);
+                }
+    
+                $filtered = [];
+    
+                foreach ($requestData as $key => $value) {
+    
+                    $filtered [ $key ] = is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+                }
+    
+                $filtered['photo'] = isset($upload) ? $upload: null;
+    
+                $created = $this->wapperModel->insert($filtered);
+    
+                if ($created) {
+    
+                    header('HTTP/1.1 302 Redirect');
+                    header('Location: ' . url());
+                }
+                else {
+    
+                    view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'undraw_server.svg']);
+                }
             }
             else {
 
-                view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'undraw_server.svg']);
+                view('notification', ['text' => 'Solicitação não encontrada', 'image' => 'undraw_server.svg']);
             }
         }
 

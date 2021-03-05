@@ -1,5 +1,5 @@
 <nav class="create-wapper-nav">
-    <a href="<?= url('/novo-wapper') ?>">novo wapper</a>
+    <a href="<?= url('/novo') ?>">novo wapper</a>
 </nav>
 
 <?php if (! empty($wappers)): ?>
