@@ -3,11 +3,11 @@
 - [X] autoload de classe
 - [X] MVC
 - [X] Orientação a Objetos
-- [ ] Super classe de Modelo
+- [ ] Super classe de Modelo (fazendo de acordo com as necessidades)
 - [X] Cadastro
 - [X] Leitura
 - [ ] Edição
-- [ ] Remoção
+- [X] Remoção
 - [X] Upload de imagens
 - [ ] Alertas em JS para as ações de sucesso e erro
 - [X] CSS básico para organizar o front
