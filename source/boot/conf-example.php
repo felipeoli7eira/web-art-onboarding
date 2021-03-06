@@ -6,5 +6,6 @@
     define('CONF_DB_USER', 'root');
     define('CONF_DB_PASSWORD', '');
 
-    /** URL and PATHS */
+    /** URLs and PATHS */
     define('CONF_URL_BASE', 'http://localhost/web-art-onboarding');
+    define('CONF_UPLOADS_PATH', __DIR__ . '/../../storage/');
