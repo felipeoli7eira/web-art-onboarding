@@ -17,13 +17,11 @@
 
     function view(string $viewName, ?array $data = []): void
     {
-
         # extract($data);
 
         if (sizeof($data) > 0) {
 
             foreach ($data as $varName => $value) {
-
                 $$varName = $value;
             }
         }
@@ -36,4 +34,10 @@
 
         /** html close */
         require __DIR__ . '/../../views/html/close.php';
+    }
+
+    function redirect(string $path): void
+    {
+        header('HTTP/1.1 302 Redirect');
+        header('Location: ' . $path);
     }

@@ -104,8 +104,7 @@
 
                 if ($created) {
 
-                    header('HTTP/1.1 302 Redirect');
-                    header('Location: ' . url());
+                    redirect(url());
                     exit();
                 }
                 else {
@@ -145,9 +144,8 @@
                     $deleted = $this->wapperModel->destroy(filter_var($id, FILTER_SANITIZE_STRIPPED));
 
                     if ($deleted) {
-    
-                        header('HTTP/1.1 302 Redirect');
-                        header('Location: ' . url());
+
+                        redirect(url());
                         exit();
                     }
                     else {
@@ -227,8 +225,7 @@
 
                 if ($updated) {
 
-                    header('HTTP/1.1 302 Redirect');
-                    header('Location: ' . url());
+                    redirect(url());
                     exit();
                 }
                 else {
