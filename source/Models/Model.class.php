@@ -18,21 +18,30 @@
     abstract class Model
     {
         /**
-         * Monta uma query de SELECT e retorna o resultado da execução
-         * @method select()
+         * Monta uma query de SELECT e retorna um PDOStatement
+         * @method read()
          * @param null|string $columns
-         * @return array
+         * @param null|string $condition
+         * @param null|array $conditionValues
+         * @return PDOStatement
         */
-        protected function read(string $queryForExec, ?array $linksAndValues = null): PDOStatement
+        protected function read(?string $columns = '*', ?string $condition = null, ?array $conditionValues = null): PDOStatement
         {
-            $select = DBConnection::getConnection()->prepare($queryForExec);
+            $query = 'SELECT ' . $columns . ' FROM wappers';
 
-            if ( !is_null($linksAndValues))
+            if (!is_null($condition))
             {
-                foreach ($linksAndValues as $link => $value)
+                $query .= " {$condition}";
+            }
+
+            $select = DBConnection::getConnection()->prepare($query);
+
+            if ( !is_null($conditionValues))
+            {
+                foreach ($conditionValues as $link => $value)
                 {
                     $bindType = is_string($value) ? \PDO::PARAM_STR : \PDO::PARAM_INT;
-                    $select->bindValue($link, $value, $bindType);
+                    $select->bindValue(':' . $link, $value, $bindType);
                 }
             }
 
@@ -41,6 +50,12 @@
             return $select;
         }
 
+        /**
+         * Monta uma query de INSERT e retorna o id do registro inserido
+         * @method create()
+         * @param array $data
+         * @return null|int
+        */
         protected function create(array $data): ?int
         {
             try {
@@ -51,7 +66,6 @@
                 $insert = 'INSERT INTO wappers (' . $columns . ') VALUES (' . $values . ')';
 
                 $stmt = DBConnection::getConnection()->prepare($insert);
-
                 $stmt->execute($data);
 
                 return DBConnection::getConnection()->lastInsertId();
@@ -62,6 +76,13 @@
             }
         }
 
+        /**
+         * Monta uma query de DELETE e retorna a quantidade de linhas deletadas ou 1 (operação feita)
+         * @method delete()
+         * @param string $condition
+         * @param array $conditionParams
+         * @return null|int
+        */
         protected function delete(string $condition, array $conditionParams): ?int
         {
             try {
@@ -76,6 +97,13 @@
             }
         }
 
+        /**
+         * Monta uma query de UPDATE e retorna a quantidade de linhas atualizadas ou 1 (operação feita)
+         * @method update()
+         * @param array $data
+         * @param int $id
+         * @return null|int
+        */
         protected function update(array $data, int $id): ?int
         {
             try {

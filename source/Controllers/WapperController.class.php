@@ -5,7 +5,7 @@
      * 
      * Controlador de wapper
      * 
-     * @author Felipe Oliveira <felipe.oliveira@wapstore.com.br>
+     * @author Felipe Oliveira
     */
 
     namespace Source\Controllers;
@@ -24,7 +24,7 @@
          * Tipos permitidos de arquivos para upload
          * @var array $allowedFileTypes
          * */
-        private array $allowedFileTypes = ['image/jpg', 'image/png', 'image/jpeg'];
+        protected static array $allowedFileTypes = ['image/jpg', 'image/png', 'image/jpeg'];
 
         public function __construct()
         {
@@ -38,7 +38,7 @@
         */
         public function home(): void
         {
-            if ($this->requestMethod() === 'GET') {
+            if ($this->getRequestMethod() === 'GET') {
 
                 $wappers = $this->wapperModel->selectAll();
 
@@ -56,7 +56,7 @@
         */
         public function htmlFormCreate(): void
         {
-            if ($this->requestMethod() === 'GET') {
+            if ($this->getRequestMethod() === 'GET') {
 
                 view ('form-create');
             }
@@ -73,14 +73,14 @@
 
         /**
          * Cadastra um novo wapper
-         * @method createWapper()
-         * @param array $requestData
-         * @param null|array $requestFiles
-         * @return mixed
+         * @method insert()
+         * @param array $requestData | Dados vindos do $_POST
+         * @param null|array $requestFiles | arquivos em $_FILES
+         * @return void
         */
-        public function insert(array $requestData, ?array $requestFiles = null)
+        public function insert(array $requestData, ?array $requestFiles = null): void
         {
-            if ($this->requestMethod() === 'POST') {
+            if ($this->getRequestMethod() === 'POST') {
 
                 if (
                     !empty($requestFiles) &&
@@ -98,7 +98,7 @@
                     $filtered [ $key ] = is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
                 }
 
-                $filtered['photo'] = isset($upload) ? $upload: null;
+                $filtered['photo'] = !empty($upload) ? $upload: null;
 
                 $created = $this->wapperModel->insert($filtered);
 
@@ -106,6 +106,7 @@
 
                     header('HTTP/1.1 302 Redirect');
                     header('Location: ' . url());
+                    exit();
                 }
                 else {
 
@@ -118,19 +119,36 @@
             }
         }
 
-        public function destroy()
+        /**
+         * Deleta um recurso pelo id
+         * 
+         * @method destroy()
+         * @return void
+        */
+        public function destroy(): void
         {
-            if ($this->requestMethod() === 'GET' && array_key_exists( /** wapper id */ 'wid', $_GET)) {
+            if ($this->getRequestMethod() === 'GET' && array_key_exists( /** wapper id */ 'wid', $_GET)) {
 
                 $id = filter_input(INPUT_GET, 'wid', FILTER_VALIDATE_INT);
 
                 if ($id) {
-                    $deleted = $this->wapperModel->destroy($id);
+
+                    $wapper = $this->wapperModel->getByID($id);
+
+                    if (!is_null($wapper->photo) &&
+                        file_exists(CONF_UPLOADS_PATH . $wapper->photo) &&
+                        is_file(CONF_UPLOADS_PATH . $wapper->photo)
+                    ) {
+                        unlink(CONF_UPLOADS_PATH . $wapper->photo);
+                    }
+
+                    $deleted = $this->wapperModel->destroy(filter_var($id, FILTER_SANITIZE_STRIPPED));
 
                     if ($deleted) {
     
                         header('HTTP/1.1 302 Redirect');
                         header('Location: ' . url());
+                        exit();
                     }
                     else {
 
@@ -148,13 +166,17 @@
             }
         }
 
+        /**
+         * Caso a requisição seja GET, chama o formulário de edição
+         * Caso a requisição seja POST, executa o update
+         * @method edit()
+         * @return void
+        */
         public function edit()
         {
-            /** [ GET ]
-             * Chamar formulário de edição
-            */
+            /** [ GET REQUEST ] */
             if (
-                $this->requestMethod() === 'GET' &&
+                $this->getRequestMethod() === 'GET' &&
                 array_key_exists( /** wapper id */ 'wid', $_GET) &&
                 $this->validInt($_GET['wid'])
             )
@@ -165,30 +187,27 @@
                 return;
             }
 
-            /** [ POST ]
-             * Persistir edição no banco
-            */
+            /** [ POST REQUEST ] */
             if (
-                $this->requestMethod() === 'POST' &&
+                $this->getRequestMethod() === 'POST' &&
                 array_key_exists('id', $_POST) &&
                 $this->validInt($_POST['id'])
             )
             {
-                if (array_key_exists('old_photo', $_POST) && !empty($_POST['old_photo']))
-                {
-                    if (file_exists(CONF_UPLOADS_PATH . $_POST['old_photo']))
-                    {
-                        unlink(CONF_UPLOADS_PATH . $_POST['old_photo']);
-                    }
-                    unset($_POST['old_photo']);
-                }
-
                 if (
                     !empty($_FILES) &&
                     array_key_exists('photo', $_FILES) &&
                     array_key_exists('name', $_FILES['photo'])
                 )
                 {
+                    if (array_key_exists('old_photo', $_POST) && !empty($_POST['old_photo']))
+                    {
+                        if (file_exists(CONF_UPLOADS_PATH . $_POST['old_photo']))
+                        {
+                            unlink(CONF_UPLOADS_PATH . $_POST['old_photo']);
+                        }
+                    }
+
                     $upload = $this->upload($_FILES);
                 }
 
@@ -199,9 +218,12 @@
                     $sanitize [ $key ] = is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
                 }
 
-                $sanitize['photo'] = !empty($upload) ? $upload: null;
+                $sanitize['photo'] = !empty($upload) ? $upload: $_POST['old_photo'];
+                unset($sanitize['old_photo']);
 
                 $updated = $this->wapperModel->edit($sanitize);
+
+                var_dump($updated);
 
                 if ($updated) {
 
@@ -217,42 +239,5 @@
             }
 
             view ('notification', ['text' => 'Solicitação não encontrada ou mau formatada']);
-        }
-
-        /**
-         * Faz o upload para a pasta storage, retorna o nome do arquivos em caso de sucesso ou false em casos de erro
-         * 
-         * @param array $requestFile
-         * @return string|bool
-        */
-        public function upload(array $requestFile)
-        {
-            $file = $requestFile['photo'];
-
-            if (in_array($file['type'], $this->allowedFileTypes))
-            {
-                /**
-                 * O resultado da @var string $timeName será parecido com: upload-03-03-2021-17h44m53s-timestamp-1614804293
-                */
-                $timeName = 'upload-' . date('d-m-Y-H\hi\ms\s') . '-timestamp-' . time();
-                $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-
-                $fileUploadName = $timeName . '.' . $extension;
-
-                $move = move_uploaded_file($file['tmp_name'], CONF_UPLOADS_PATH . $fileUploadName);
-
-                if ($move)
-                {
-                    return $fileUploadName;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
         }
     }

@@ -22,9 +22,9 @@
              * Comparação de string segura para binário para os primeiros n caracteres:
              * strncmp($str1, $str2, $tamanho)
              * 
-             * Retorna um número menor que zero caso $str1 seja menor que $str2
-             * Retorna um número maior que zero caso $str1 seja maior que $str2
-             * Retorna zero caso $str1 e $str2 sejam iguais
+             * Retorna um número MENOR que zero caso $str1 seja MENOR que $str2
+             * Retorna um número MAIOR que zero caso $str1 seja MAIOR que $str2
+             * Retorna ZERO caso $str1 e $str2 sejam IGUAIS
             */
 
             /*    classe instânciada | prefixo do fornecedor | tamanho do nome do fornecedor */

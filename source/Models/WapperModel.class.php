@@ -5,7 +5,7 @@
      * 
      * Modelo de wapper
      * 
-     * @author Felipe Oliveira <felipe.oliveira@wapstore.com.br>
+     * @author Felipe Oliveira
     */
 
     namespace Source\Models;
@@ -13,17 +13,18 @@
     class WapperModel extends Model
     {
         /**
-         * Executa o método select da super-classe modelo chamando todos os registros
-         * @method all()
-         * @param null|string $columns
+         * Executa o read da super-classe modelo buscando todos os registros
+         * @method selectAll()
          * @return array
         */
         public function selectAll(): array
         {
-            return $this->read('SELECT * FROM wappers')->fetchAll();
+            return $this->read()->fetchAll();
         }
 
         /**
+         * Executa o create da super-classe modelo inserindo um registro
+         * @method insert()
          * @param array $data [valores para inserir na tabela]
          * @return null|int
          */
@@ -32,17 +33,35 @@
             return $this->create($data);
         }
 
-        public function destroy(int $id)
+        /**
+         * Executa o delete da super-classe modelo deletando um wapper
+         * @method destroy()
+         * @param int $id
+         * @return int
+         */
+        public function destroy(int $id): int
         {
             return $this->delete('id = :id', ['id' => $id]);
         }
 
-        public function getByID($id, string $columns = '*')
+        /**
+         * Executa o read da super-classe modelo trazendo apenas o registro com id passado
+         * @method getByID()
+         * @param int $id
+         * @return null|object
+         */
+        public function getByID($id): ?object
         {
-            return $this->read('SELECT ' . $columns . ' FROM wappers WHERE id = :id', [':id' => $id])->fetch();
+            return $this->read('*', 'WHERE id = :id', ['id' => $id])->fetch();
         }
 
-        public function edit(array $data)
+        /**
+         * Executa o update da super-classe modelo atualizando um registro
+         * @method edit()
+         * @param array $data
+         * @return null|int
+         */
+        public function edit(array $data): ?int
         {
             return $this->update($data, (int) $data['id']);
         }
