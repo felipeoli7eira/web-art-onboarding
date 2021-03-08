@@ -25,7 +25,7 @@ function messenger()
         /** salva o valor do cookie antes de deletar */
         let cookieValue = cookieMessageKeyValueString.split('=') [ 1 ]
 
-        window.alert(decodeURI(cookieValue))
+        showMessage(decodeURI(cookieValue))
 
         /** deleta o cookie */
         let expired = new Date(2000,10,1).toGMTString()
@@ -33,6 +33,26 @@ function messenger()
     }
 
     return
+}
+
+function showMessage(message)
+{
+    const divAlert = document.querySelector('.alert')
+
+    divAlert.innerHTML = message
+
+    if (divAlert.classList.contains('d-none'))
+    {
+        divAlert.classList.remove('d-none')
+    }
+
+    setTimeout(() => {
+        if (!divAlert.classList.contains('d-none'))
+        {
+            divAlert.classList.add('d-none')
+            divAlert.innerHTML = ""
+        }
+    }, 5000)
 }
 
 messenger()

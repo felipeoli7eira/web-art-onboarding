@@ -219,3 +219,23 @@ form#create-wapper .submit-box
 {
     text-align: right;
 }
+
+/* -------------------- */
+
+.alert
+{
+    border: 1px solid #b3e9c9;
+    margin: 1rem 0;
+    border-radius: 4px;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 500;
+    background-color: #ccf1db;
+    color: #006e2c;
+    font-size: 14px;
+}
+
+.d-none
+{
+    display: none;
+}

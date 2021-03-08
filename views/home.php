@@ -1,5 +1,7 @@
 <nav class="create-wapper-nav">
     <a href="<?= url('/novo') ?>">novo wapper</a>
+
+    <div class="alert d-none"></div>
 </nav>
 
 <?php if (! empty($wappers)): ?>
