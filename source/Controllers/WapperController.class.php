@@ -113,7 +113,6 @@
                     $this->setResponseToFront('Algo deu errado, tente novamente daqui a pouco');
                     redirect(url());
                     exit();
-                    // view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'img/undraw_server.svg']);
                 }
             }
             else {
@@ -152,16 +151,12 @@
                         $this->setResponseToFront('Wapper removido');
                         redirect(url());
                         exit();
-                        // redirect(url());
-                        // exit();
                     }
                     else {
 
                         $this->setResponseToFront('Erro ao tentar remover o wapper');
                         redirect(url());
                         exit();
-
-                        // view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'img/undraw_server.svg']);
                     }
                 }
                 else {
@@ -169,7 +164,6 @@
                     $this->setResponseToFront('Dados passados incorretamente');
                     redirect(url());
                     exit();
-                    // view ('notification', ['text' => 'Dados passados incorretamente, verifique e tente novamente']);
                 }
             }
             else {
@@ -200,16 +194,10 @@
             }
 
             /** [ POST REQUEST ] */
-            if (
-                $this->getRequestMethod() === 'POST' &&
-                array_key_exists('id', $_POST) &&
-                $this->validInt($_POST['id'])
-            ) {
-                if (
-                    !empty($_FILES) &&
-                    array_key_exists('photo', $_FILES) &&
-                    array_key_exists('name', $_FILES['photo'])
-                ) {
+            if ($this->getRequestMethod() === 'POST' && array_key_exists('id', $_POST) && $this->validInt($_POST['id']) ) {
+
+                if ($_FILES['photo']['name'] !== '') {
+
                     if (array_key_exists('old_photo', $_POST) && !empty($_POST['old_photo']))
                     {
                         if (file_exists(CONF_UPLOADS_PATH . $_POST['old_photo']))
@@ -238,17 +226,12 @@
                     $this->setResponseToFront('Wapper atualizado');
                     redirect(url());
                     exit();
-
-                    // redirect(url());
-                    // exit();
                 }
                 else {
 
                     $this->setResponseToFront('Erro ao tentar atualizar o wapper');
                     redirect(url());
                     exit();
-                    // view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'img/undraw_server.svg']);
-                    // return;
                 }
             }
 

@@ -35,4 +35,4 @@ function messenger()
     return
 }
 
-document.onload = () => messenger()
+messenger()

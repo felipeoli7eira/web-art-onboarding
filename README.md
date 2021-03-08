@@ -9,13 +9,13 @@
 - [X] Edição
 - [X] Remoção
 - [X] Upload de imagens
-- [ ] Alertas em JS para as ações de sucesso e erro
+- [X] Alertas em JS para as ações de sucesso e erro
 - [X] CSS básico para organizar o front
 
 # Subindo esse projeto na sua máquina
 
-Clone este repositório para a raiz do seu servidor local
-
+Clone este repositório para a raiz do seu servidor local.
+IMPORTANTE: caso esteja usando Linux, dar permissão 777 na pasta
 ```
 git clone git@github.com:felipeoli7eira/web-art-onboarding.git
 ```
