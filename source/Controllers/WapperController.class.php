@@ -204,14 +204,12 @@
                 $this->getRequestMethod() === 'POST' &&
                 array_key_exists('id', $_POST) &&
                 $this->validInt($_POST['id'])
-            )
-            {
+            ) {
                 if (
                     !empty($_FILES) &&
                     array_key_exists('photo', $_FILES) &&
                     array_key_exists('name', $_FILES['photo'])
-                )
-                {
+                ) {
                     if (array_key_exists('old_photo', $_POST) && !empty($_POST['old_photo']))
                     {
                         if (file_exists(CONF_UPLOADS_PATH . $_POST['old_photo']))

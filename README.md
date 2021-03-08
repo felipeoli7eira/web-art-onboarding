@@ -27,7 +27,7 @@ Em seguida, é preciso setar as configurações de banco de dados, para isso bas
 ```
 /** DATABASE */
 define('CONF_DB_HOST', 'localhost');
-define('CONF_DB_NAME', 'nome-do-banco-aqui');
+define('CONF_DB_NAME', 'onboarding');
 define('CONF_DB_USER', 'root');
 define('CONF_DB_PASSWORD', '');
 ```
