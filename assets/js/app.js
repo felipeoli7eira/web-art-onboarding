@@ -25,13 +25,14 @@ function messenger()
         /** salva o valor do cookie antes de deletar */
         let cookieValue = cookieMessageKeyValueString.split('=') [ 1 ]
 
-        window.alert(cookieValue)
+        window.alert(decodeURI(cookieValue))
 
         /** deleta o cookie */
         let expired = new Date(2000,10,1).toGMTString()
         document.cookie = `we_b_operation_response=; expires=${expired}; path=/`
     }
+
+    return
 }
 
-
-messenger()
+document.onload = () => messenger()

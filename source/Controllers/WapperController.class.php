@@ -104,12 +104,16 @@
 
                 if ($created) {
 
+                    $this->setResponseToFront('Wapper cadastrado');
                     redirect(url());
                     exit();
                 }
                 else {
 
-                    view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'img/undraw_server.svg']);
+                    $this->setResponseToFront('Algo deu errado, tente novamente daqui a pouco');
+                    redirect(url());
+                    exit();
+                    // view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'img/undraw_server.svg']);
                 }
             }
             else {
@@ -145,17 +149,27 @@
 
                     if ($deleted) {
 
+                        $this->setResponseToFront('Wapper removido');
                         redirect(url());
                         exit();
+                        // redirect(url());
+                        // exit();
                     }
                     else {
 
-                        view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'img/undraw_server.svg']);
+                        $this->setResponseToFront('Erro ao tentar remover o wapper');
+                        redirect(url());
+                        exit();
+
+                        // view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'img/undraw_server.svg']);
                     }
                 }
                 else {
 
-                    view ('notification', ['text' => 'Dados passados incorretamente, verifique e tente novamente']);
+                    $this->setResponseToFront('Dados passados incorretamente');
+                    redirect(url());
+                    exit();
+                    // view ('notification', ['text' => 'Dados passados incorretamente, verifique e tente novamente']);
                 }
             }
             else {
@@ -223,13 +237,20 @@
 
                 if ($updated) {
 
+                    $this->setResponseToFront('Wapper atualizado');
                     redirect(url());
                     exit();
+
+                    // redirect(url());
+                    // exit();
                 }
                 else {
 
-                    view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'img/undraw_server.svg']);
-                    return;
+                    $this->setResponseToFront('Erro ao tentar atualizar o wapper');
+                    redirect(url());
+                    exit();
+                    // view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'img/undraw_server.svg']);
+                    // return;
                 }
             }
 

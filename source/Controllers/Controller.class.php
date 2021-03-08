@@ -60,4 +60,16 @@
                 return false;
             }
         }
+
+        /**
+         * Define um cookie com uma mensagem para ser exibida no front pela window.alert()
+         * 
+         * @method setResponseToFront()
+         * @param string $message
+         * @return void
+        */
+        protected function setResponseToFront(string $message): void
+        {
+            setcookie('we_b_operation_response', $message, time() + 5, '/');
+        }
     }
