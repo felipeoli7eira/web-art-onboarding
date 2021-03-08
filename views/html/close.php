@@ -1,4 +1,4 @@
-<script type="module" src="<?= asset('app.js') ?>"></script>
+<script type="module" src="<?= asset('js/app.js') ?>"></script>
 
 </body>
 </html>

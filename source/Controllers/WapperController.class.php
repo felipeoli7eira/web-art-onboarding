@@ -65,7 +65,7 @@
                 view ('notification',
                     [
                         'text' => 'Solicitação não encontrada',
-                        'image' => 'undraw_server.svg'
+                        'image' => 'img/undraw_server.svg'
                     ]
                 );
             }
@@ -109,12 +109,12 @@
                 }
                 else {
 
-                    view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'undraw_server.svg']);
+                    view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'img/undraw_server.svg']);
                 }
             }
             else {
 
-                view('notification', ['text' => 'Solicitação não encontrada', 'image' => 'undraw_server.svg']);
+                view('notification', ['text' => 'Solicitação não encontrada', 'image' => 'img/undraw_server.svg']);
             }
         }
 
@@ -150,7 +150,7 @@
                     }
                     else {
 
-                        view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'undraw_server.svg']);
+                        view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'img/undraw_server.svg']);
                     }
                 }
                 else {
@@ -221,8 +221,6 @@
 
                 $updated = $this->wapperModel->edit($sanitize);
 
-                var_dump($updated);
-
                 if ($updated) {
 
                     redirect(url());
@@ -230,7 +228,7 @@
                 }
                 else {
 
-                    view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'undraw_server.svg']);
+                    view('notification', ['text' => 'Algo deu errado, tente novamente daqui a pouco', 'image' => 'img/undraw_server.svg']);
                     return;
                 }
             }

@@ -34,7 +34,7 @@
 
             default:
 
-                view('notification', ['text' => 'Solicitação não encontrada', 'image' => 'undraw_server.svg']);
+                view('notification', ['text' => 'Solicitação não encontrada', 'image' => 'img/undraw_server.svg']);
         }
     }
     else {
