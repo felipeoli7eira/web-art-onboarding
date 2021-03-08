@@ -59,3 +59,14 @@ CREATE TABLE wappers (
 ```
 
 Tudo deverá funcionar corretamente... (assim espero)
+
+# Preview
+
+Home Page (sem dados para listar)
+<img src="./preview/index.png" alt="home" />
+
+Formulário de cadastro e edição de wapper
+<img src="./preview/cadastro-edicao.png" alt="formulário" />
+
+Home Page (com dados para listar)
+<img src="./preview/exemplo-dados.png" alt="home (com dados)" />
