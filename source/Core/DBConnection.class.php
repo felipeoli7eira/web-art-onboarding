@@ -5,7 +5,7 @@
      * 
      * Cria a conexão com o banco de dados usando o design patten Singleton
      * 
-     * @author Felipe Oliveira <felipe.oliveira@wapstore.com.br>
+     * @author Felipe Oliveira
     */
 
     namespace Source\Core;

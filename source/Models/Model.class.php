@@ -5,7 +5,7 @@
      * 
      * Super-classe de Modelo
      * 
-     * @author Felipe Oliveira <felipe.oliveira@wapstore.com.br>
+     * @author Felipe Oliveira
     */
 
     namespace Source\Models;
@@ -18,36 +18,38 @@
     abstract class Model
     {
         /**
-         * Monta uma query de SELECT e retorna um PDOStatement
+         * Monta e executa uma query de SELECT e retorna nulo ou PDOStatement
          * @method read()
          * @param null|string $columns
          * @param null|string $condition
          * @param null|array $conditionValues
-         * @return PDOStatement
+         * @return null|PDOStatement
         */
-        protected function read(?string $columns = '*', ?string $condition = null, ?array $conditionValues = null): PDOStatement
+        protected function read(?string $columns = '*', ?string $condition = null, ?array $conditionValues = null): ?PDOStatement
         {
-            $query = 'SELECT ' . $columns . ' FROM wappers';
-
-            if (!is_null($condition))
-            {
-                $query .= " {$condition}";
-            }
+            $query = 'SELECT ' . $columns . ' FROM wappers' . ( !is_null($condition) ? " {$condition}" : '' );
 
             $select = DBConnection::getConnection()->prepare($query);
 
-            if ( !is_null($conditionValues))
-            {
-                foreach ($conditionValues as $link => $value)
-                {
+            if ( !is_null($conditionValues)) {
+
+                foreach ($conditionValues as $linkName => $value) {
+
                     $bindType = is_string($value) ? \PDO::PARAM_STR : \PDO::PARAM_INT;
-                    $select->bindValue(':' . $link, $value, $bindType);
+                    $select->bindValue(':' . $linkName, $value, $bindType);
                 }
             }
 
             $select->execute();
 
-            return $select;
+            if ($select->rowCount()) {
+
+                return $select;
+            }
+            else {
+
+                return null;
+            }
         }
 
         /**
@@ -63,9 +65,9 @@
                 $columns = implode(', ', array_keys($data));
                 $values = ':' . implode(', :', array_keys($data));
 
-                $insert = 'INSERT INTO wappers (' . $columns . ') VALUES (' . $values . ')';
+                $queryInsert = 'INSERT INTO wappers (' . $columns . ') VALUES (' . $values . ')';
 
-                $stmt = DBConnection::getConnection()->prepare($insert);
+                $stmt = DBConnection::getConnection()->prepare($queryInsert);
                 $stmt->execute($data);
 
                 return DBConnection::getConnection()->lastInsertId();
@@ -120,7 +122,7 @@
                 }
 
                 $strLinks = implode(', ', $links);
-                $updateQueryString = 'UPDATE wappers SET ' . $strLinks . ' WHERE id = :id' ;
+                $updateQueryString = 'UPDATE wappers SET ' . $strLinks . ' WHERE id = :id';
 
                 $stmt = DBConnection::getConnection()->prepare($updateQueryString);
                 $stmt->execute(

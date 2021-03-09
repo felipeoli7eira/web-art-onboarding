@@ -4,7 +4,7 @@
     $errorText = isset($text) ? $text : 'Erro';
 ?>
 
-<div class="page-error">
-    <img src="<?= asset($imageError) ?>" alt="Erro" />
+<div class="page-notification">
+    <img src="<?= asset($imageError) ?>" alt="Notificação" />
     <h1><?= $errorText ?></h1>
 </div>

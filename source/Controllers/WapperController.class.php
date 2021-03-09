@@ -82,25 +82,20 @@
         {
             if ($this->getRequestMethod() === 'POST') {
 
-                if (
-                    !empty($requestFiles) &&
-                    array_key_exists('photo', $requestFiles) &&
-                    array_key_exists('name', $requestFiles['photo'])
-                )
-                {
+                if ( !empty($requestFiles) && array_key_exists('photo', $requestFiles) && mb_strlen($requestFiles['photo']['name']) ) {
                     $upload = $this->upload($requestFiles);
                 }
 
-                $filtered = [];
+                $sanitizeFields = [];
 
-                foreach ($requestData as $key => $value) {
+                foreach ($requestData as $postIndexKey => $postIndexValue) {
 
-                    $filtered [ $key ] = is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+                    $sanitizeFields [ $postIndexKey ] = is_null($postIndexValue) ? null : filter_var($postIndexValue, FILTER_SANITIZE_SPECIAL_CHARS);
                 }
 
-                $filtered['photo'] = !empty($upload) ? $upload: null;
+                $sanitizeFields['photo'] = !empty($upload) ? $upload: null;
 
-                $created = $this->wapperModel->insert($filtered);
+                $created = $this->wapperModel->insert($sanitizeFields);
 
                 if ($created) {
 
@@ -122,8 +117,7 @@
         }
 
         /**
-         * Deleta um recurso pelo id
-         * 
+         * Deleta um wapper pelo id
          * @method destroy()
          * @return void
         */
@@ -131,37 +125,41 @@
         {
             if ($this->getRequestMethod() === 'GET' && array_key_exists( /** wapper id */ 'wid', $_GET)) {
 
-                $id = filter_input(INPUT_GET, 'wid', FILTER_VALIDATE_INT);
+                if ($this->validInt($_GET['wid'])) {
 
-                if ($id) {
+                    $wid = filter_input(INPUT_GET, 'wid', FILTER_SANITIZE_NUMBER_INT);
 
-                    $wapper = $this->wapperModel->getByID($id);
+                    $wapper = $this->wapperModel->getByID($wid);
 
-                    if (!is_null($wapper->photo) &&
-                        file_exists(CONF_UPLOADS_PATH . $wapper->photo) &&
-                        is_file(CONF_UPLOADS_PATH . $wapper->photo)
-                    ) {
-                        unlink(CONF_UPLOADS_PATH . $wapper->photo);
+                    if (!is_null($wapper)) { /** se existe um wapper com ID passado */
+
+                        if (!is_null($wapper->photo) && file_exists(CONF_UPLOADS_PATH . $wapper->photo) && is_file(CONF_UPLOADS_PATH . $wapper->photo) ) {
+                            unlink(CONF_UPLOADS_PATH . $wapper->photo);
+                        }
+
+                        $deleted = $this->wapperModel->destroy($wid);
+
+                        if ($deleted) {
+
+                            $this->setResponseToFront('Wapper removido');
+                            redirect(url());
+                            exit();
+                        }
+                        else {
+
+                            $this->setResponseToFront('Erro ao tentar remover o wapper');
+                            redirect(url());
+                            exit();
+                        }
                     }
 
-                    $deleted = $this->wapperModel->destroy(filter_var($id, FILTER_SANITIZE_STRIPPED));
-
-                    if ($deleted) {
-
-                        $this->setResponseToFront('Wapper removido');
-                        redirect(url());
-                        exit();
-                    }
-                    else {
-
-                        $this->setResponseToFront('Erro ao tentar remover o wapper');
-                        redirect(url());
-                        exit();
-                    }
+                    $this->setResponseToFront('Waper não encontrado');
+                    redirect(url());
+                    exit();
                 }
                 else {
 
-                    $this->setResponseToFront('Dados passados incorretamente');
+                    $this->setResponseToFront('Erro na identificação do wapper');
                     redirect(url());
                     exit();
                 }
@@ -173,20 +171,16 @@
         }
 
         /**
-         * Caso a requisição seja GET, chama o formulário de edição
+         * Caso a requisição seja GET, exibe o formulário de edição
          * Caso a requisição seja POST, executa o update
          * @method edit()
          * @return void
         */
-        public function edit()
+        public function edit(): void
         {
             /** [ GET REQUEST ] */
-            if (
-                $this->getRequestMethod() === 'GET' &&
-                array_key_exists( /** wapper id */ 'wid', $_GET) &&
-                $this->validInt($_GET['wid'])
-            )
-            {
+            if ( $this->getRequestMethod() === 'GET' && array_key_exists( /** wapper id */ 'wid', $_GET) && $this->validInt($_GET['wid']) ) {
+
                 $wapper = $this->wapperModel->getByID( filter_input(INPUT_GET, 'wid', FILTER_SANITIZE_NUMBER_INT) );
 
                 view('form-update', ['wapper' => $wapper]);
@@ -196,40 +190,48 @@
             /** [ POST REQUEST ] */
             if ($this->getRequestMethod() === 'POST' && array_key_exists('id', $_POST) && $this->validInt($_POST['id']) ) {
 
-                if ($_FILES['photo']['name'] !== '') {
+                /** Entra nesse if() se o usuário enviou uma foto e é a foto que o back-end está esperando receber */
+                if ( !empty($_FILES) && array_key_exists('photo', $_FILES) && mb_strlen($_FILES['photo']['name']) ) {
 
-                    if (array_key_exists('old_photo', $_POST) && !empty($_POST['old_photo']))
-                    {
-                        if (file_exists(CONF_UPLOADS_PATH . $_POST['old_photo']))
-                        {
+                    /**
+                     * Se foi enviada uma foto, então a foto antiga deve ser removida do disco para a entrada da nova foto.
+                     * 
+                     * Então se o nome da foto antiga foi recebido:
+                     * */
+                    if (array_key_exists('old_photo', $_POST) && mb_strlen($_POST['old_photo'])) {
+
+                        /** Verifica se a foto está na pasta. Se sim deleta de lá */
+                        if (file_exists(CONF_UPLOADS_PATH . $_POST['old_photo'])) {
+
                             unlink(CONF_UPLOADS_PATH . $_POST['old_photo']);
                         }
                     }
 
+                    /** Depois da deleção da antiga foto, upar a nova */
                     $upload = $this->upload($_FILES);
                 }
 
-                $sanitize = [];
+                $sanitizedFields = [];
 
-                foreach ($_POST as $key => $value) {
+                foreach ($_POST as $postKeyName => $postKeyValue) {
 
-                    $sanitize [ $key ] = is_null($value) ? null : filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+                    $sanitizedFields [ $postKeyName ] = is_null($postKeyValue) ? null : filter_var($postKeyValue, FILTER_SANITIZE_SPECIAL_CHARS);
                 }
 
-                $sanitize['photo'] = !empty($upload) ? $upload: $_POST['old_photo'];
-                unset($sanitize['old_photo']);
+                $sanitizedFields['photo'] = !empty($upload) ? $upload : filter_input(INPUT_POST, 'old_photo', FILTER_SANITIZE_STRING);
+                unset($sanitizedFields['old_photo']);
 
-                $updated = $this->wapperModel->edit($sanitize);
+                $updated = $this->wapperModel->edit($sanitizedFields);
 
-                if ($updated) {
+                if ($updated >= 0) {
 
-                    $this->setResponseToFront('Wapper atualizado');
+                    $this->setResponseToFront('Atualização feita');
                     redirect(url());
                     exit();
                 }
                 else {
 
-                    $this->setResponseToFront('Erro ao tentar atualizar o wapper');
+                    $this->setResponseToFront('Erro na atualização');
                     redirect(url());
                     exit();
                 }

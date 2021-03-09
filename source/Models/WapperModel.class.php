@@ -15,17 +15,26 @@
         /**
          * Executa o read da super-classe modelo buscando todos os registros
          * @method selectAll()
-         * @return array
+         * @return null|array
         */
-        public function selectAll(): array
+        public function selectAll(): ?array
         {
-            return $this->read()->fetchAll();
+            $readAll = $this->read();
+
+            if (!is_null($readAll)) {
+
+                return $readAll->fetchAll();
+            }
+            else {
+
+                return null;
+            }
         }
 
         /**
          * Executa o create da super-classe modelo inserindo um registro
          * @method insert()
-         * @param array $data [valores para inserir na tabela]
+         * @param array $data | valores para inserir na tabela
          * @return null|int
          */
         public function insert(array $data): ?int
@@ -50,9 +59,18 @@
          * @param int $id
          * @return null|object
          */
-        public function getByID($id): ?object
+        public function getByID(int $id): ?object
         {
-            return $this->read('*', 'WHERE id = :id', ['id' => $id])->fetch();
+            $read = $this->read('*', 'WHERE id = :id', ['id' => $id]);
+
+            if ( !is_null($read)) {
+
+                return $read->fetch();
+            }
+            else {
+
+                return null;
+            }
         }
 
         /**

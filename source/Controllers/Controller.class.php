@@ -1,12 +1,20 @@
 <?php
 
+    /**
+     * @class Controller
+     * 
+     * Controlador Base - Responsavél por conter métodos úteis para qualquer Controller
+     * 
+     * @author Felipe Oliveira
+    */
+
     namespace Source\Controllers;
 
     class Controller
     {
         /**
          * Retorna o verbo da requisição
-         * @method string getRequestMethod()
+         * @method getRequestMethod()
          * @return string
         */
         protected function getRequestMethod(): string
@@ -15,18 +23,18 @@
         }
 
         /**
-         * Verifica se é um inteiro válido (para ID)
+         * Verifica se o parâmetro é um inteiro válido
          * @method validInt()
+         * @param string|int $argument
          * @return bool
         */
-        protected function validInt($arg): bool
+        protected function validInt($argument): bool
         {
-            return filter_var($arg, FILTER_VALIDATE_INT);
+            return filter_var($argument, FILTER_VALIDATE_INT);
         }
 
         /**
          * Faz o upload para a pasta storage, retorna o nome do arquivo em caso de sucesso ou false em casos de erro
-         * 
          * @method upload()
          * @param array $files
          * @return string|bool
@@ -35,8 +43,7 @@
         {
             $photo = $files['photo'];
 
-            if (in_array($photo['type'], static::$allowedFileTypes /** parâmetro da classe filha */ ))
-            {
+            if (in_array($photo['type'], static::$allowedFileTypes /** parâmetro da classe filha */ )) {
                 /**
                  * O resultado da @var string $timeName será parecido com: upload-03-03-2021-17h44m53s-timestamp-1614804293
                 */
@@ -46,24 +53,20 @@
                 $fileUploadName = $timeName . '.' . $extension;
                 $move = move_uploaded_file($photo['tmp_name'], CONF_UPLOADS_PATH . $fileUploadName);
 
-                if ($move)
-                {
+                if ($move) {
                     return $fileUploadName;
                 }
-                else
-                {
+                else {
                     return false;
                 }
             }
-            else
-            {
+            else {
                 return false;
             }
         }
 
         /**
-         * Define um cookie com uma mensagem para ser exibida no front pela window.alert()
-         * 
+         * Cria um cookie com uma mensagem para ser exibida no front
          * @method setResponseToFront()
          * @param string $message
          * @return void

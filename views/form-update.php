@@ -1,24 +1,24 @@
-<nav class="list-wappers-nav">
+<nav class="nav-control">
     <a href="<?= url() ?>">wappers</a>
 </nav>
 
-<form enctype="multipart/form-data" name="update-wapper" id="create-wapper" method="POST" action="<?= url('/edit') ?>">
+<form enctype="multipart/form-data" name="update-wapper" method="POST" action="<?= url('/edit') ?>">
 
     <input type="hidden" name="id" value="<?= $wapper->id ?>">
 
     <div class="input-group">
         <label for="input-photo">Foto de perfil</label>
         <input type="file" id="input-photo" name="photo">
-        <p style="font-size: 12px ; color: #5d5d5d ; margin-top: 5px">
+        <p class="photo-info">
             <?php
-                if ($wapper->photo) {
+                if (!is_null($wapper->photo)) {
                     echo <<<MESSAGE
-                        Você já tem uma foto, caso queira mudar selecione e envie junto ao formulário.
+                        Você tem uma foto cadastrada. Se quiser mudar, selecione e envie junto ao formulário.
                         <input type="hidden" name="old_photo" value="{$wapper->photo}">
                     MESSAGE;
                 }
                 else {
-                    echo 'Você ainda não tem foto. Caso queira, pode selecionar e enviar junto ao formulário' ;
+                    echo 'Você não tem foto cadastrada. Caso queira, pode selecionar e enviar junto ao formulário';
                 }
             ?>
         </p>

@@ -1,8 +1,8 @@
 /**
- * função messenger(): verifica se tem uma mensagem setada (pelo backend) em um cookie chamado "we_b_operation_response"
- * se tiver exibe e apaga esse cookie, se não, não faz nada
+ * função checkMessage(): verifica se tem uma mensagem setada (pelo backend) em um cookie chamado "we_b_operation_response"
+ * se tiver, exibe e apaga esse cookie, se não, não faz nada
 */
-function messenger()
+function checkMessage()
 {
     let cookiesInBrowser = document.cookie
 
@@ -35,6 +35,11 @@ function messenger()
     return
 }
 
+/**
+ * @func showMessage()
+ * 
+ * exibe a mensagem na interface (basicamente exibe e oculta uma div de aviso)
+*/
 function showMessage(message)
 {
     const divAlert = document.querySelector('.alert')
@@ -55,4 +60,4 @@ function showMessage(message)
     }, 5000)
 }
 
-messenger()
+checkMessage()

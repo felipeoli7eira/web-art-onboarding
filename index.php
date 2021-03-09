@@ -13,31 +13,26 @@
         switch ($path) {
 
             case '/novo':
-
                 $wapperController->htmlFormCreate();
             break;
 
             case '/wapper': /** CREATE */
-
                 $wapperController->insert($_POST, $_FILES);
             break;
 
             case '/d': /** DELETE */
-
                 $wapperController->destroy();
             break;
 
             case '/edit': /** UPDATE */
-
                 $wapperController->edit();
             break;
 
             default:
-
                 view('notification', ['text' => 'Solicitação não encontrada', 'image' => 'img/undraw_server.svg']);
         }
     }
     else {
 
-        $wapperController->home(); /** READ ALL */
+        $wapperController->home(); /** READ */
     }

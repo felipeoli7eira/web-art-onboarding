@@ -19,102 +19,9 @@ body
     background-color: #eaeaea;
 }
 
-.page-error
-{
-    padding: 1rem;
-    text-align: center;
-    margin-top: 3rem;
-}
-
-.page-error img
-{
-    max-width: 150px;
-}
-
-.page-error h1
-{
-    font-weight: 300;
-    font-size: 25px;
-    margin-top: 1rem;
-    color: var(--blue-dark);
-}
-
 /* -------------------- */
 
-ul#wappers
-{
-    max-width: 500px;
-    margin: 1rem auto;
-    padding: 1rem;
-}
-
-ul#wappers li
-{
-    list-style: none;
-    padding: 1rem;
-    background-color: #fff;
-    margin-bottom: 1rem;
-    border-radius: 3px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
-ul#wappers li p
-{
-    color: var(--blue-dark);
-    margin-bottom: 6px;
-    font-weight: 400;
-}
-
-ul#wappers li p.name
-{
-    font-size: 22px;
-}
-
-ul#wappers li img
-{
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 10px;
-}
-
-ul#wappers li nav
-{
-    text-align: right;
-    margin-top: 15px;
-}
-
-ul#wappers li nav a
-{
-    text-decoration: none;
-    font-weight: 600;
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 3px;
-    text-transform: uppercase;
-    font-size: 13px;
-    transition: all 0.2s;
-}
-
-ul#wappers li nav a:active
-{
-    opacity: 0.8;
-}
-
-ul#wappers li nav a:first-child
-{
-    background-color: var(--orange);
-    color: #fff;
-}
-
-ul#wappers li nav a:last-child
-{
-    background-color: #dcdcdc;
-    color: rgb(48, 48, 48);
-}
-
-/* -------------------- */
-
-.create-wapper-nav, .list-wappers-nav
+.nav-control
 {
     text-align: right;
     padding: 1rem;
@@ -122,7 +29,7 @@ ul#wappers li nav a:last-child
     margin: 1rem auto;
 }
 
-.create-wapper-nav a, .list-wappers-nav a
+.nav-control a
 {
     transition: all .2s;
     text-decoration: none;
@@ -137,26 +44,114 @@ ul#wappers li nav a:last-child
     box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
 }
 
-.create-wapper-nav a:active, .list-wappers-nav a:active
+.nav-control a:hover
 {
-    opacity: 0.8;
+    background-color: #1c1b29;
+}
+
+.nav-control a:active
+{
+    opacity: 0.9;
 }
 
 /* -------------------- */
 
-form#create-wapper
+#wapper-list
 {
-    max-width: 500px;
-    margin: 10px auto 4rem auto;
-
+    max-width: 420px;
+    margin: 0 auto;
 }
 
-form#create-wapper .input-group
+#wapper-list li
+{
+    list-style: none;
+    padding: 1rem;
+    background-color: #fff;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+#wapper-list li p
+{
+    color: #0a0a0a;
+    margin-bottom: 6px;
+    font-weight: 400;
+}
+
+#wapper-list li p.name
+{
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+#wapper-list li img
+{
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+#wapper-list li nav
+{
+    text-align: right;
+    margin-top: 20px;
+}
+
+#wapper-list li nav a
+{
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 14px;
+    transition: all 0.2s;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+#wapper-list li nav a:active
+{
+    opacity: 0.9;
+}
+
+#wapper-list li nav a:first-child
+{
+    background-color: var(--orange);
+    color: #fff;
+}
+
+#wapper-list li nav a:last-child
+{
+    background-color: #dcdcdc;
+    color: rgb(36, 36, 36);
+}
+
+/* -------------------- */
+
+form
+{
+    max-width: 500px;
+    margin: 0 auto 4rem auto;
+}
+
+form p.photo-info
+{
+    font-size: 13px;
+    color: #5d5d5d;
+    margin-top: 5px;
+    padding: 10px;
+}
+
+form .input-group
 {
     padding: 5px;
 }
 
-form#create-wapper .input-group label
+form .input-group label
 {
     display: inline-block;
     margin-bottom: 5px;
@@ -166,7 +161,7 @@ form#create-wapper .input-group label
     color: var(--blue-dark);
 }
 
-form#create-wapper .input-group input
+form .input-group input
 {
     border: none;
     outline: none;
@@ -182,40 +177,41 @@ form#create-wapper .input-group input
     width: 100%;
 }
 
-form#create-wapper .input-group input:focus
+form .input-group input:focus
 {
-    border-color: #a7a7a7;
+    box-shadow: 0 0 0px 1px rgb(47 46 65);
 }
 
 /* Autocomplete background-color */
-form#create-wapper input:-webkit-autofill
+form input:-webkit-autofill
 {
     -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
 }
 
-form#create-wapper button[type=submit]
+form button[type=submit]
 {
     outline: none;
     border: none;
     background: none;
+
     font-weight: 500;
     text-transform: uppercase;
     font-size: 14px;
     color: #fff;
     background-color: var(--blue-dark);
-    padding: 10px 16px;
+    padding: 10px 15px;
     border-radius: 4px;
     transition: all .2s;
     cursor: pointer;
     box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
 }
 
-form#create-wapper button[type=submit]:active
+form button[type=submit]:active
 {
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
-form#create-wapper .submit-box
+form .submit-box
 {
     text-align: right;
 }
@@ -224,16 +220,41 @@ form#create-wapper .submit-box
 
 .alert
 {
-    border: 1px solid #b3e9c9;
+    border: 1px solid #a0d2b4;
     margin: 1rem 0;
     border-radius: 4px;
     padding: 1rem;
     text-align: left;
     font-weight: 500;
-    background-color: #ccf1db;
-    color: #006e2c;
+    background-color: #b3eaca;
+    color: #2a4c38;
     font-size: 14px;
 }
+
+/* -------------------- */
+
+.page-notification
+{
+    padding: 1rem;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.page-notification h1
+{
+    font-weight: 300;
+    font-size: 25px;
+    margin-top: 1rem;
+    color: var(--blue-dark);
+}
+
+.page-notification img
+{
+    display: inline-block;
+    max-width: 150px;
+}
+
+/* -------------------- */
 
 .d-none
 {
