@@ -207,17 +207,13 @@
                     $upload = $this->upload($_FILES);
                 }
 
-                $sanitizedFields = [];
+                $sanitizeFields = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
-                foreach ($_POST as $postKeyName => $postKeyValue) {
+                $sanitizeFields['photo'] = ! empty($upload) ? $upload : $sanitizeFields['old_photo'];
 
-                    $sanitizedFields [ $postKeyName ] = is_null($postKeyValue) ? null : filter_var($postKeyValue, FILTER_SANITIZE_SPECIAL_CHARS);
-                }
+                unset($sanitizeFields['old_photo']);
 
-                $sanitizedFields['photo'] = !empty($upload) ? $upload : filter_input(INPUT_POST, 'old_photo', FILTER_SANITIZE_STRING);
-                unset($sanitizedFields['old_photo']);
-
-                $updated = $this->wapperModel->edit($sanitizedFields);
+                $updated = $this->wapperModel->edit($sanitizeFields);
 
                 if ($updated >= 0) {
 
