@@ -86,14 +86,10 @@
                     $upload = $this->upload($requestFiles);
                 }
 
-                $sanitizeFields = [];
+                /** xss */
+                $sanitizeFields = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
-                foreach ($requestData as $postIndexKey => $postIndexValue) {
-
-                    $sanitizeFields [ $postIndexKey ] = is_null($postIndexValue) ? null : filter_var($postIndexValue, FILTER_SANITIZE_SPECIAL_CHARS);
-                }
-
-                $sanitizeFields['photo'] = !empty($upload) ? $upload: null;
+                $sanitizeFields['photo'] = ! empty($upload) ? $upload : null;
 
                 $created = $this->wapperModel->insert($sanitizeFields);
 
