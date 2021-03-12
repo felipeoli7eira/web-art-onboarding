@@ -1,6 +1,6 @@
 # Onboarding web.art group
 
-- [X] autoload de classe
+- [X] autoload de classe (psr-4)
 - [X] MVC
 - [X] Orientação a Objetos
 - [X] Super classe de Modelo
